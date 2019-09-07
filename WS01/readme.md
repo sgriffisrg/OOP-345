@@ -154,9 +154,9 @@ and follow the instructions. Replace XXX with the section letter(s) specified by
 
 
  
-## At-Home
+## *At-Home*
 
-For this part of the workshop, upgrade your `String` class to manage a C-style null-terminated string of any length. Do not change your other modules.
+For this part of the workshop, upgrade your `String` class to manage a C-style null-terminated string of any length.  When a new instance is created, the custom constructor should accept at most `g_maxSize` characters (excluding the null terminator).  No other modules need to be changed.
 
 ### Sample Output
 
