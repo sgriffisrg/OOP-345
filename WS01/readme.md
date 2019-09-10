@@ -92,7 +92,7 @@ Your `String` module defines a class named `String` that holds a C-style null-te
 
 - a query named `display()` that receives a reference to an `std::ostream` object and inserts the string stored in the instance variable.
 
-- a **free helper** operator that inserts the saved string into the left operand.  This operator should count how many times it has been called (by incrementing a counter), and prints this value to the screen as shown below.  **Do not use global variables to store the counter!**
+- a **free helper** insertion operator that inserts the saved string into the left operand.  This operator should count how many times it has been called (by incrementing a counter), and prints this value to the screen as shown below.  **Do not use global variables to store the counter!**
 ```
 COUNTER: STRING
 ```
