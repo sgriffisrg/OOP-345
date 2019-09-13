@@ -91,7 +91,7 @@ Your class includes the following member functions:
   - calculates and stores the duration of the event (use `std::chrono::duration_cast<std::chrono::nanoseconds>()`, see documentation [here](https://en.cppreference.com/w/cpp/chrono/duration/duration_cast))
 - a **friend insertion operator** that receives a reference to an `std::ostream` object and a `TimedEvents` object. This operator should insert in the first parameter the records from the array in the following format:
 
-  ```
+```
 Execution Times:
 --------------------------
 EVENT_NAME DURATION UNITS
