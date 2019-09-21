@@ -108,7 +108,7 @@ LABEL : VALUE<endl>
 ```
 
 
-***Free Helpers**
+***Free Helpers***
 - `std::ostream& operator<<(std::ostream& os, const sdds::LVPair<L, V>& pair)`: calls the function `LVPair<L, V>::display()` to insert a pair into the stream.
 
 
