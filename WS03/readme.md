@@ -208,7 +208,7 @@ This class is derived from `LVPair<L, V>`, and receives 2 template parameters:
 
 
 
-***Specializations**
+***Specializations***
 
 - for `SummableLVPair<std::string, std::string>`, the initial value for summation should be set to empty string (`""`).
 
