@@ -197,8 +197,8 @@ This class is derived from `LVPair<L, V>`, and receives 2 template parameters:
 
 - default constructor
 
-- `SummableLVPair(const L& lbl, const V& val)`: stores the pair in the collection, and updates the field width if necessary.
-  This functions assumes that the type `L` supports a function named `size()` that returns the number of characters required to display `lbl`.
+- `SummableLVPair(const L& lbl, const V& val)`: stores the pair in the current instance, and updates the field width if necessary.
+  This functions assumes that the type `L` supports a function named `size()` that returns the number of characters required to display `lbl` -- use it to check if the field width need updated or not.
 
 - `V sum(const L& lbl, const V& val) const`:
   - If the label of the pair stored in the current instance is `lbl`, then add the value of the pair and `val` together and return the result. Use `+` for addition.
