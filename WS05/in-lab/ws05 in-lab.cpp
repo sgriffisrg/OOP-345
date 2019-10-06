@@ -1,5 +1,6 @@
-// Workshop 5 - Lambdas
+// Workshop 5 - Functions and Error Handling
 // 2019/10 - Cornel
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
