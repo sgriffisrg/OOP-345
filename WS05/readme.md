@@ -91,7 +91,10 @@ Design and code a class named `Book` that should be able to store the following 
 
 ***Public Members***
 - a default constructor
-- `const std::string& title() const`: a query that return the title of the book
+- `const std::string& title() const`: a query that returns the title of the book
+- `const std::string& country() const`: a query that returns the publication country
+- `const size_t& year() const`: a query that returns the publication year
+- `double& price()`: a function that returns the price **by referene**, allowing you to update the price
 - `Book(const std::string& strBook)`: A constructor that receives the book as a string; this constructor is responsible to extract the information about the book from the parameter and store it in the attributes of the instance. The parameter will always have the following format:
 ```
 AUTHOR,TITLE,COUNTRY,PRICE,YEAR,DESCRIPTION
@@ -105,7 +108,7 @@ AUTHOR,TITLE,COUNTRY,PRICE,YEAR,DESCRIPTION
   - [std::stoi()](https://en.cppreference.com/w/cpp/string/basic_string/stol)
   - [std::stod()](https://en.cppreference.com/w/cpp/string/basic_string/stof)
 
-**Add any other functions that is required by your design!**
+**Add any other function that is required by your design!**
 
 
 ***Friend Helpers***
@@ -118,7 +121,7 @@ AUTHOR | TITLE | COUNTRY | YEAR | PRICE | DESCRIPTION
   - the **country** should be printed on a field of size 5;
   - the **year** should be printed on a field of size 4;
   - the **price** should be printed on a field of size 6, and should have 2 digits;
-
+  - see alignment in the sample output.
 
 
 
@@ -190,12 +193,17 @@ When implementing the operator, consider the following functions:
 
 
 
+
 ### `Book` Module
+
 
 Add to the `Book` class a public template function:
 - `void fixSpelling(T spellChecker)`: this function should call the overloaded `operator()` on instance `spellChecker`, passing to it the book description.
 
-In this design, type `T` must have an overload of the `operator()` that accepts a string as a parameter.
+  In this design, type `T` must have an overload of the `operator()` that accepts a string as a parameter.
+
+  **Since this is a template function, it must be implemented in the header!** The class is not a template.
+
 
 
 
@@ -210,8 +218,8 @@ Design and code a class named `Movie` that should be able to store the following
 
 ***Public Members***
 - a default constructor
-- `const std::string& title() const`: a query that return the title of the movie
-- `Movie(const std::string strMovie)`: A constructor that receives the movie as a string; this constructor is responsible to extract the information about the movie from the parameter and store it in the attributes of the instance. The parameter will always have the following format:
+- `const std::string& title() const`: a query that returns the title of the movie
+- `Movie(const std::string& strMovie)`: A constructor that receives the movie as a string; this constructor is responsible to extract the information about the movie from the parameter and store it in the attributes of the instance. The parameter will always have the following format:
 ```
 TITLE,YEAR,DESCRIPTION
 ```
@@ -227,8 +235,9 @@ TITLE,YEAR,DESCRIPTION
 
   In this design, type `T` must have an overload of the `operator()` that accepts a string as a parameter.
 
+  **Since this is a template function, it must be implemented in the header!** The class is not a template.
 
-**Add any other functions that is required by your design!**
+**Add any other function that is required by your design!**
 
 
 ***Friend Helpers***
@@ -244,24 +253,46 @@ TITLE | YEAR | DESCRIPTION
 
 ### `Collection` Module
 
-**TO BE COMPLETED SOON**
 
-Add a `Collection` module to your project. The purpose of this class is to manage a collection of template types `T`.
+Add a `Collection` module to your project. The purpose of this class is to manage a collection items of template type `T`. Since this is template class, it doesn't need a `.cpp` file.
 
-This module should maintain a dynamically allocated array of objects of type `T`.
+This module should manage a **dynamically allocated** array of objects of type `T`, resizing it when a new item is added. Using a callback function, this class will inform the client when a new item has been added to the collection.
+
+The class collection will provide two overloads for `operator[]` to access the stored item. 
+
+
+***Private Data***
+
+- the name of the collection;
+- a dynamically allocated array of items `T`
+- the size of the array
+- a pointer to a function that returns `void` and receives two parameters of type `const Collection<T>&` and `const T&`.
+
+  This is the **observer** function (it *observes* an event): when an item has been added to the collection, the class `Collection<T>` will call this function informing the client about the adition.
 
 
 ***Public Members***
 
-- `Collection(std::string name)`
+- `Collection(std::string name)`: sets the name of the collection to the parameter and all other attributes to their default value
 - this class doesn't support copy operations; delete them.
 - a destructor
 - `const std::string& name() const`: a query that returns the name of the collection.
 - `size_t size() const`: a query that returns how many items are in the collection.
-- `void setObserver(void (*observer)(const Collection&, const T&))`: stores the parameter into an attribute, to be used when an item is added to the collection.
-- `Collection& operator+=(const T& item)`
-- `T& operator[](size_t idx) const`
-- `T* operator[](std::string title) const`
+
+- `void setObserver(void (*observer)(const Collection<T>&, const T&))`: stores the parameter into an attribute, to be used when an item is added to the collection. The parameter is a pointer to a function that returns `void` and accepts two parameters: a collection and an item that has just been added to the collection.
+
+- `Collection<T>& operator+=(const T& item)`: adds a copy of `item` to the collection, only if the collection doesn't contain an item with the same title (type `T` has a member function called `title()` that returns the title of the item). If `item` is already in the collection, this function does nothing.  If the item is not already in the collection, this function:
+  - resize the array to accomodate the new item
+  - if there is an observer registered, call the observer function passing `*this` and the new item as parameters.
+
+- `T& operator[](size_t idx) const`: returns the item at index `idx`.
+  - if the index is out of range, this function throws an exception of type `std::out_of_range` with the message `Bad index [IDX]. Collection has [SIZE] items.`. Use operator `+` to concatenate strings.
+
+  When implementing this operator, consider the following:
+  - [std::to_string()](https://en.cppreference.com/w/cpp/string/basic_string/to_string)
+  - [std::out_of_range](https://en.cppreference.com/w/cpp/error/out_of_range)
+
+- `T* operator[](std::string title) const`: returns the address of the item with title `title` (type `T` has a member function called `title()` that returns the title of the item). If no such item exists, this function returns `nullptr`.
 
 
 ***FREE Helpers***
@@ -269,13 +300,13 @@ This module should maintain a dynamically allocated array of objects of type `T`
 - overload the insertion operator to insert the content of a `Collection` object into an **ostream** object. Iterate over all elements in the collection and insert each one into the `ostream` object (do not add newlines).
 
 
-
+**:warning:Important: The class `Collection` should have no knowledge of any of the custom types you have defined (`Book`, `Movie`, `SpellChecker`).** 
 
 
 
 ### Sample Output
 
-When the program is started with the command (the file `book.txt` is provided):
+When the program is started with the command (the files are provided):
 ```
 w5.exe books.txt movies.txt missing_file.txt words.txt
 ```
@@ -289,8 +320,10 @@ the output should look like the one from the `sample_output.txt` file.
 Study your final solution, reread the related parts of the course notes, and make sure that you have understood the concepts covered by this workshop. **This should take no less than 30 minutes of your time.**
 
 Create a **text** file named `reflect.txt` that contains your detailed description of the topics that you have learned in completing this particular workshop and mention any issues that caused you difficulty and how you solved them. Include in your explanation—**but do not limit it to**—the following points:
-- ??
-- ??
+- the difference between the implementations/utilizations of a functor and a lambda expression.  When is appropriate to use each one?
+- the constructor for `SpellChecker` generates an exception in certain conditions.  How would you change your code to achieve the same result, but without exceptions (both on the constructor and on the client side)? Compare the two solutions.
+- the classes `Movie` and `Book` contain almost identical logic in loading data from the file. How would you redesign the classes in order **not** to duplicate that logic?
+- the classes `Movie` and `Book` are instantiated from the `main()` function using a custom constructor, but they also contain a default constructor.  Is the default constructor necessary? Could you remove it? Justify your answer.
 
 
 
