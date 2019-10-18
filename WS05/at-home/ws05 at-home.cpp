@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <string>
 #include "Collection.h"
 #include "Collection.h"
 #include "Book.h"

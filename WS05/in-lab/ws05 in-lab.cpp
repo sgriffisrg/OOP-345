@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <string>
 #include "Book.h"
 #include "Book.h"
 
@@ -19,8 +20,26 @@ int main(int argc, char** argv)
 	std::cout << "--------------------------\n\n";
 
 	// get the books
+	int count = 0;
 	sdds::Book library[7];
 	{
+		std::ifstream file(argv[1]);
+		
+		if (!file) {
+			std::cerr << "ERROR: Cannot open file [" << argv[1] << "].\n";
+			return 1;
+		}
+
+		std::string book;
+		do {
+			std::getline(file, book);
+			if (file) {
+				if (book[0] != '#') {
+					library[count] = Book(book);
+					count++;
+				}
+			}
+		} while (file);
 		// TODO: load the collection of books from the file "argv[1]".
 		//       - read one line at a time, and pass it to the Book constructor
 		//       - store each book read into the array "library"
@@ -29,6 +48,16 @@ int main(int argc, char** argv)
 
 	double usdToCadRate = 1.3;
 	double gbpToCadRate = 1.5;
+
+	    auto priceFix = [=](Book& src) {
+		if (src.country() == "US") {
+			src.price() *= usdToCadRate;
+		}
+		if (src.country() == "UK") {
+			if (src.year() >= 1990 || src.year() <= 1999)
+				src.price() *= gbpToCadRate;
+		}
+		};
 
 	// TODO: create a lambda expression that fixes the price of a book accoding to the rules
 	//       - the expression should receive a single parameter of type "Book&"
@@ -47,6 +76,9 @@ int main(int argc, char** argv)
 
 	// TODO: iterate over the library and update the price of each book
 	//         using the lambda defined above.
+	for (int i = 0; i < count; i++) {
+		priceFix(library[i]);
+	}
 
 
 	std::cout << "-----------------------------------------\n";
