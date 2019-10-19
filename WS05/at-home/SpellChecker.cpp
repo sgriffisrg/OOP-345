@@ -34,9 +34,11 @@ namespace sdds {
 	void SpellChecker::operator()(std::string& text) const {
 		std::string::size_type n;
 		for (size_t i = 0; i < 5; i++) {
-			n = text.find(m_badWords[i]);
-			if (n != std::string::npos) {
-				text.replace(n, m_badWords[i].length(), m_goodWords[i]);
+			for (size_t j = 0; j < text.length(); j++) {
+				n = text.find(m_badWords[i], j);
+				if (n != std::string::npos) {
+					text.replace(n, m_badWords[i].length(), m_goodWords[i]);
+				}
 			}
 		}
 	}

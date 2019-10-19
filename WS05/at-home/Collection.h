@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #define _CRT_SECURE_NO_WARNINGS
 #ifndef SDDS_COLLECTION_H
@@ -38,7 +39,7 @@ namespace sdds {
 			
 			if (collectArr == nullptr) {
 				cSize++;
-				collectArr = new T[cSize]{ item };
+				collectArr = new T[1]{ item };
 			}
 			else {
 				T* dummy = new T[cSize];

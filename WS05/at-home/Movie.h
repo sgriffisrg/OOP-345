@@ -15,7 +15,10 @@ namespace sdds {
 		const std::string& title() const { return ttle; }
 		friend std::ostream& operator<<(std::ostream&, const Movie&);
 		template <typename T>
-		void fixSpelling(T spellChecker) { spellChecker(ttle); }
+		void fixSpelling(T spellChecker) { 
+			spellChecker(ttle); 
+			spellChecker(desc); 
+		}
 	};
 }
 #endif
