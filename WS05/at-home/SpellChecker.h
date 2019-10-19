@@ -12,5 +12,4 @@ namespace sdds {
 		void operator()(std::string& text) const;
 	};
 }
-
-#endif // !1
+#endif

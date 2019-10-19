@@ -23,7 +23,5 @@ namespace sdds {
 		template <typename T>
 		void fixSpelling(T spellChecker) { spellChecker(desc); }
 	};
-
 }
-
 #endif

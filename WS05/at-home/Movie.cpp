@@ -39,7 +39,8 @@ namespace sdds {
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Movie& src) {
-		os << std::setw(40) << src.ttle << "|" << std::setw(4) << src.y << "|" << src.desc << std::endl;
+		os << std::setw(40) << src.ttle << " | " << std::setw(4) << src.y << " | " << src.desc << std::endl;
+		return os;
 	}
 
 }

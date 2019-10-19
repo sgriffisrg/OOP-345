@@ -12,11 +12,10 @@ namespace sdds {
 		Movie();
 		std::string trim(std::string);
 		Movie(const std::string&);
+		const std::string& title() const { return ttle; }
 		friend std::ostream& operator<<(std::ostream&, const Movie&);
 		template <typename T>
-		void fixSpelling(T spellChecker) { spellChecker(desc); }
+		void fixSpelling(T spellChecker) { spellChecker(ttle); }
 	};
-
 }
-
 #endif

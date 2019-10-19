@@ -58,8 +58,8 @@ namespace sdds {
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Book& src) {
-		os << std::setw(20) << src.author << "|"; os << std::setw(22) << src.ttl << "|"; os << std::setw(5) << src.cntry << "|";
-		os << std::setw(4) << src.yr << "|"; os << std::setw(6) << std::fixed << std::setprecision(2) << src.prc << "|"; os << src.desc << std::endl;
+		os << std::setw(20) << src.author << " | "; os << std::setw(22) << src.ttl << " | "; os << std::setw(5) << src.cntry << "|";
+		os << std::setw(4) << src.yr << " | "; os << std::setw(6) << std::fixed << std::setprecision(2) << src.prc << " | "; os << src.desc << std::endl;
 		return os;
 	}
 
