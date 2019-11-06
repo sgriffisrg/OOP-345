@@ -2,15 +2,15 @@
 // w1.cpp
 // Chris Szalwinski - 2019/01/08
 // Cornel - 2019/09/06
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include "process.h"
-#include "String.h"
+#include "c_string.h"
 
 // TODO: write the prototype for the main function
 //         to accept command line arguments
 
-{
+int main(int argc, char *argv[]){
 	std::cout << "Command Line:\n";
 	// TODO: print the command line here, in the format
 	// 1: first argument
@@ -23,6 +23,11 @@
 	{
         std::cerr << "\n*** Insufficient number of arguments ***\n";
         return 1;
+	}
+	else {
+		for (int i = 0; i < argc; i++) {
+			std::cout << i + 1 << ": " << argv[i] << std::endl;
+		}
 	}
 
 	std::cout << "------------------\n";

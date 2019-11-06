@@ -4,8 +4,8 @@
 // Cornel - 2019/09/06
 
 #include <iostream>
-#include "String.h"
-
+#include "c_string.h"
+#define _CRT_SECURE_NO_WARNINGS
 namespace sdds
 {
 	void process(const char* str)
