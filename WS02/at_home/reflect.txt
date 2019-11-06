@@ -1,0 +1,6 @@
+The reason for the significant time difference between the copy and move operations:
+
+	The reason why the move function is faster is because instead of making a completely separate
+	memory allocation for the data to be stored, you're just moving the memory address to the new object.
+	While in the copy operator your had to dynamically allocate a new array and then transfer all of the 
+	data from the source object into the new array. 
