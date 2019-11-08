@@ -66,8 +66,8 @@ int main(int argc, char** argv)
 			auto sia = theCollection.getSongsForArtist("Sia");
 			for (auto& song : sia)
 			{
-				std::cout << song << "\n";
-				song.m_price += 10;
+				std::cout << song;
+				song.price += 10;
 			}
 			printbar();
 		}
