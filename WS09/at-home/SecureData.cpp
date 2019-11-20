@@ -1,6 +1,13 @@
 // Workshop 9 - Multi-Threading
 // SecureData.cpp
 
+// Name: Stephen Griffis
+// Seneca Student ID: 119051183		
+// Seneca email: sgriffis@myseneca.ca	
+// Date of completion: November 19, 2019
+//
+// I confirm that the content of this file is created by me,
+//   with the exception of the parts provided to me by my professor.
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -96,19 +103,19 @@ namespace w9 {
 
 	void SecureData::restore(const char* file, char key) {
 		// TODO: open binary file for reading
-		ifstream read(file, std::ios::binary);
+		ifstream read(file, std::ios::binary | ios_base::ate);
 		if (!read) {
 			throw string("Unable to open the file ") + string(file);
 		}
 
 		// TODO: - allocate memory here for the file content
-		char str[2000];
-		char* strP = str;
+		delete[] text;
+		nbytes = (int)read.tellg();
+		text = new char[nbytes+1];
+		read.seekg(0);
 
 		// TODO: - read the content of the binary file
-		while (read)
-			read.read(strP++, 1);
-		*--strP = '\0';
+		read.read(text, nbytes);
 
 		*ofs << "\n" << nbytes << " bytes copied from binary file "
 			<< file << " into memory.\n";

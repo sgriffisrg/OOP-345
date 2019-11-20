@@ -1,5 +1,6 @@
 // Workshop 9 - Multi-Threading
 // SecureData.h
+
 #ifndef W9_SECUREDATA_H
 #define W9_SECUREDATA_H
 
