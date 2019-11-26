@@ -72,12 +72,16 @@ namespace w9 {
 	{
 		// TODO (at-home): rewrite this function to use at least two threads
 		//         to encrypt/decrypt the text.
-		//converter(text, key, nbytes, Cryptor());
-		thread encrypt(converter, text, key, nbytes, Cryptor());
-		thread decrypt(converter, text, key, nbytes, Cryptor());
+		converter(text, key, nbytes, Cryptor());
+		auto b1 = bind(*converter, text, key, nbytes / 2 , Cryptor());
+		auto b2 = bind(*converter, text, key, nbytes / 2, Cryptor()); 
 
+		thread encrypt(b1);
 		encrypt.join();
+		
+		thread decrypt(b2);
 		decrypt.join();
+
 		encoded = !encoded;
 	}
 
@@ -89,7 +93,7 @@ namespace w9 {
 		else
 		{
 			// TODO: open a binary file for writing
-			ofstream f(file, std::ios::binary);
+			fstream f(file, ios::out | ios::binary | ios::trunc);
 			if (!f) {
 				throw string("Unable to open the file") + string(file);
 			}
